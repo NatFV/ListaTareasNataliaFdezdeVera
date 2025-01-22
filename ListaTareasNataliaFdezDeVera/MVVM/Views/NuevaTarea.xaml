@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ListaTareasNataliaFdezDeVera.MVVM.Models"
+             xmlns:vm="clr-namespace:ListaTareasNataliaFdezDeVera.MVVM.ViewModels"
+             x:Class="ListaTareasNataliaFdezDeVera.MVVM.Views.NuevaTarea"
+             xmlns:conv="clr-namespace:ListaTareasNataliaFdezDeVera.Conversiones"
+             Title="Volver a lista de tareas">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <conv:StringToBooleanConverter x:Key="StringToBooleanConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <!--Definimos las filas y las columnas-->
+        <Grid Padding="10" RowSpacing="10" ColumnDefinitions =".45*,*" RowDefinitions="*,*,*,*,*,*,*,*,*,*,*" ColumnSpacing="2">
+
+            <!--Título-->
+            <HorizontalStackLayout Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+                <Label Text="Título:" 
+                    VerticalOptions="Start" 
+                    HorizontalOptions="Start" 
+                    FontSize="Body" Margin="10"/>
+                <Entry 
+                    x:Name="TituloEntry"
+                    Placeholder="Introduce un título" 
+                    Text="{Binding Titulo}"
+                    PlaceholderColor="LightBlue"
+                    VerticalOptions="Start"
+                    Keyboard="Default"
+                    TextChanged="Entry_TextChanged"
+                    Completed="Entry_Completed"/>
+            </HorizontalStackLayout>
+
+            <!--Descripción-->
+            <Label Text="Descripción:" 
+                   VerticalOptions="Start" 
+                   HorizontalOptions="Start" 
+                   FontSize="Body" 
+                   Grid.Row="1" 
+                   Grid.Column="0"/>
+            
+            <Editor Placeholder="Introduce una descripción" 
+                    x:Name="DescripcionEntry"
+                    Text="{Binding Descripcion}"
+                    Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                    PlaceholderColor="Black"
+                    BackgroundColor="LightBlue"
+                    HeightRequest="150"                    
+                    VerticalOptions="Center"
+                    Keyboard="Default"
+                    TextChanged="Entry_TextChanged"
+                    Completed="Entry_Completed"/>
+
+            <!--Plazo-->
+            <Label Text="Elige un plazo:" 
+                   VerticalOptions="Start" 
+                   HorizontalOptions="Start" 
+                   Margin="10,0,0,0" 
+                   FontSize="Body" 
+                   Grid.Row="3" Grid.Column="0"/>
+
+            <DatePicker MinimumDate="01/01/2025"
+                        x:Name="PlazoPicker"
+                        VerticalOptions="Start" 
+                        HorizontalOptions="Start" 
+                        MaximumDate="01/01/2026"
+                        Format="dd/MM/yyyy"
+                        Date="{Binding Plazo, Mode=TwoWay}"
+                        DateSelected="DatePicker_DateSelected"
+                        Grid.Row="3" Grid.Column="1" />
+            <Label x:Name="LblValueDatePicker" Grid.Row="4" Grid.Column="1"/>
+
+
+            <!--Prioridad-->
+            <!--Para poder añadirlo a la lista, he de convertir el booleano resultante de seleccionar
+            a un String (esto lo he tenido que buscar): ir a la carpeta Conversiones y eliminar el code behind-->
+            <Label Text="¿Cuál es la prioridad?:" 
+                    VerticalOptions="Start" 
+                    HorizontalOptions="Start" 
+                    Margin="10,10,0,0"
+                    Grid.Row="5" Grid.Column="0"/>
+         
+            <HorizontalStackLayout Grid.Row="5" Grid.Column="1"  VerticalOptions="Center">
+                <RadioButton Content="Baja"
+                             GroupName="Prioridad"
+                             IsChecked="{Binding Prioridad, Converter={StaticResource StringToBooleanConverter}, ConverterParameter='Baja'}"/>
+                <RadioButton Content="Media"
+                             GroupName="Prioridad"
+                             IsChecked="{Binding Prioridad, Converter={StaticResource StringToBooleanConverter},ConverterParameter='Media'}"/>
+                <RadioButton Content="Alta"
+                             GroupName="Prioridad"
+                             IsChecked="{Binding Prioridad, Converter={StaticResource StringToBooleanConverter},ConverterParameter='Alta'}"/>
+            </HorizontalStackLayout>
+            
+            <!--Checkbutton de tarea completada o no-->
+            <HorizontalStackLayout Grid.Row="6" Grid.Column="0">
+                <Label VerticalOptions="Start" Margin="10,10,0,0" >Tarea Completada</Label>
+                <CheckBox  Grid.Row="6" Grid.Column="1"
+                    x:Name="TareaCompletadaCheckBox"
+                    IsChecked="{Binding TareaCompletada, Mode=TwoWay}" 
+                    VerticalOptions="Center"/>
+
+            </HorizontalStackLayout>
+
+            <!--PorcentajeCompletado-->
+            <Label Text="Elige el porcentaje completado:" 
+                VerticalOptions="Start" 
+                HorizontalOptions="Start" 
+                Margin="10,0,0,0"
+                Grid.Row="7" Grid.Column="0"/>
+            <HorizontalStackLayout Grid.Row="7" Grid.Column="1">
+                <Slider 
+                x:Name="slider"
+                Minimum="0"
+                Maximum="100"
+                Value="{Binding Porcentaje}"
+                MinimumTrackColor="Green"
+                MaximumTrackColor="Orange"
+                ThumbColor="Red"
+                ValueChanged="Slider_ValueChanged"
+                WidthRequest="190"/>
+                <Label x:Name="LblValueSlider" Text="Porcentaje"/>
+            </HorizontalStackLayout>
+            <Stepper
+               x:Name="stepper"
+               Grid.Row="8" Grid.Column="1"
+                Minimum="0"
+                Maximum="100"
+                Increment="2"
+                Value="{Binding Porcentaje, Mode=TwoWay}"
+                ValueChanged="StpControl_ValueChanged"/>
+            <Label x:Name="StpControlValue" Text="Valor" Grid.Row="9" Grid.Column="1"/>
+            
+           
+
+            <!--Botones de guardar o anular-->
+            <Button Text="Guardar" Command="{Binding GuardarTareaCommand}"
+                    Grid.Row="9"
+                    Grid.Column="0"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Center"                 
+                    />
+            <Button Text="Cancelar" 
+                    Grid.Column="1"
+                    Grid.Row="9"
+                    Clicked="Button_Clicked" 
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Center" />
+        </Grid>
+    </ScrollView>
+</ContentPage>

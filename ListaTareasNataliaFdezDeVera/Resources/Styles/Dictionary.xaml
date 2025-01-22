@@ -1,0 +1,270 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:ListaTareasNataliaFdezDeVera.MVVM.ViewModels"
+             xmlns:selectors="clr-namespace:ListaTareasNataliaFdezDeVera.Selectors">
+
+    <DataTemplate x:Key="TareasNormales">
+        <Grid Margin="15, 15, 15, 0" ColumnDefinitions="*, *" RowDefinitions="Auto, Auto, Auto, Auto, Auto" BackgroundColor="Transparent" Padding="10">
+
+            <!-- Fondo del Frame con degradado -->
+            <Frame Grid.RowSpan="5" Grid.ColumnSpan="2" CornerRadius="10" HasShadow="True" Padding="10">
+                <Frame.Background>
+                    <LinearGradientBrush EndPoint="1,0">
+                        <GradientStop Offset="0" Color="DarkGreen"/>
+                        <GradientStop Offset="1" Color="GreenYellow" />
+                    </LinearGradientBrush>
+                </Frame.Background>
+            </Frame>
+
+            <!-- Botones de acción (Editar y Borrar) -->
+            <HorizontalStackLayout 
+                Grid.Row="0" 
+                Grid.Column="1" 
+                HorizontalOptions="End" 
+                VerticalOptions="Start" 
+                Margin="10" 
+                Spacing="10">
+                <ImageButton x:Name="Editar"
+                         Source="editar.png"
+                         HeightRequest="24" 
+                         WidthRequest="24" 
+                         Aspect="AspectFit"
+                         Command="{Binding Source={RelativeSource AncestorType={x:Type vm:DataViewModel}}, Path=EditarTareaCommand}"  
+                         CommandParameter="{Binding .}" />
+                <ImageButton x:Name="Borrar"
+                         Source="eliminar.png"
+                         HeightRequest="24" 
+                         WidthRequest="24" 
+                         Aspect="AspectFit"
+                         Command="{Binding Source={RelativeSource AncestorType={x:Type vm:DataViewModel}}, Path=EliminarTareaCommand}"  
+                         CommandParameter="{Binding .}" />
+            </HorizontalStackLayout>
+
+            <!-- Título de la tarea -->
+            <Label Grid.Row="0" 
+               Grid.Column="0" 
+               Text="{Binding Titulo}" 
+               FontSize="Medium" 
+               VerticalOptions="Center" 
+               HorizontalOptions="Start" 
+               Margin="10,0,0,0" 
+               FontAttributes="Bold" />
+
+            <!-- Prioridad -->
+            <Label Grid.Row="2" 
+               Grid.Column="0" 
+               Text="{Binding Prioridad, StringFormat='Prioridad: {0}'}" 
+               FontSize="Small" 
+               VerticalOptions="Start" 
+               Margin="10,0,0,0" />
+
+            <!-- Plazo -->
+            <Label Grid.Row="3" 
+               Grid.Column="0" 
+               Text="{Binding Plazo, StringFormat='Plazo: {0:dd/MM/yyyy}'}" 
+               FontSize="Small" 
+               VerticalOptions="End" 
+               Margin="10,0,0,0" />
+
+            <!--Tarea Completada-->
+            <Label Text="Tarea Completada" 
+                    Margin="30,0,0,0" 
+                    FontSize="Small"  
+                    Grid.Row="4" 
+                    Grid.Column="0" 
+                    VerticalOptions="Center"/>  
+            <CheckBox  
+                Grid.Row="4" 
+                Grid.Column="0" 
+            IsChecked="{Binding TareaCompletada, Mode=TwoWay}" 
+            VerticalOptions="Center"/>
+
+            <!-- Progreso -->
+            <Label Grid.Row="4" 
+                 Grid.Column="1" 
+                 Text="{Binding Porcentaje, StringFormat='Progreso: {0} %'}" 
+                 FontSize="Small" 
+                 HorizontalOptions="End" 
+                 VerticalOptions="Center" 
+                 Margin="10,0,10,0" />  
+        </Grid>
+    </DataTemplate>
+
+
+    <DataTemplate x:Key="PMedia">
+        <Grid Margin="15, 15, 15, 0" ColumnDefinitions="*, *" RowDefinitions="Auto,Auto,Auto,Auto,Auto" BackgroundColor="Transparent" Padding="10">
+
+
+            <!-- Fondo del Frame con degradado -->
+            <Frame Grid.RowSpan="10" Grid.ColumnSpan="2" CornerRadius="10" HasShadow="True" Padding="10">
+                <Frame.Background>
+                    <LinearGradientBrush EndPoint="1,0">
+                        <GradientStop Offset="0" Color="OrangeRed"/>
+                        <GradientStop Offset="1" Color="Orange" />
+                    </LinearGradientBrush>
+                </Frame.Background>
+            </Frame>
+
+            <!-- Botones de acción (Editar y Borrar) -->
+            <HorizontalStackLayout 
+                Grid.Row="0" 
+                Grid.Column="1" 
+                HorizontalOptions="End" 
+                VerticalOptions="Start" 
+                Margin="10" 
+                Spacing="10">
+                <ImageButton x:Name="Editar"
+                     Source="editar.png"
+                     HeightRequest="24" 
+                     WidthRequest="24" 
+                     Aspect="AspectFit"
+                     Command="{Binding Source={RelativeSource AncestorType={x:Type vm:DataViewModel}}, Path=EditarTareaCommand}"  
+                    CommandParameter="{Binding .}" />
+                <ImageButton x:Name="Borrar"
+                     Source="eliminar.png"
+                     HeightRequest="24" 
+                     WidthRequest="24" 
+                     Aspect="AspectFit"
+                     Command="{Binding Source={RelativeSource AncestorType={x:Type vm:DataViewModel}}, Path=EliminarTareaCommand}"  
+                     CommandParameter="{Binding .}" />
+            </HorizontalStackLayout>
+
+            <!-- Título de la tarea -->
+            <Label Grid.Row="0" 
+                Grid.Column="0" 
+                Text="{Binding Titulo}" 
+                FontSize="Medium" 
+                VerticalOptions="Center" 
+                HorizontalOptions="Start" 
+                Margin="10,0,0,0" 
+                FontAttributes="Bold" />
+
+            <!-- Prioridad -->
+            <Label Grid.Row="2" 
+                   Grid.Column="0" 
+                   Text="{Binding Prioridad, StringFormat='Prioridad: {0}'}" 
+                   FontSize="Small" 
+                   VerticalOptions="Start" 
+                   Margin="10,0,0,0" />
+
+            <!-- Plazo -->
+            <Label Grid.Row="3" 
+               Grid.Column="0" 
+               Text="{Binding Plazo, StringFormat='Plazo : {0:dd/MM/yyyy}'}" 
+               FontSize="Small" 
+               VerticalOptions="End" 
+               Margin="10,0,0,0" />
+
+            <!--Tarea Completada-->
+            <Label Text="Tarea Completada" 
+                Margin="30,0,0,0" 
+                FontSize="Small"  
+                Grid.Row="4" 
+                Grid.Column="0" 
+                VerticalOptions="Center"/>
+            <CheckBox  
+                Grid.Row="4" 
+                Grid.Column="0" 
+            IsChecked="{Binding TareaCompletada, Mode=TwoWay}" 
+            VerticalOptions="Center"/>
+
+            <!-- Progreso -->
+            <Label Grid.Row="4" 
+                 Grid.Column="1" 
+                 Text="{Binding Porcentaje, StringFormat='Progreso: {0} %'}" 
+                 FontSize="Small" 
+                 HorizontalOptions="End" 
+                 VerticalOptions="Center" 
+                 Margin="10,0,10,0" />
+
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="PAlta">
+        <Grid Margin="15, 15, 15, 0" ColumnDefinitions="*, *" RowDefinitions="Auto, Auto, Auto, Auto, Auto" BackgroundColor="Transparent" Padding="10">
+
+
+            <!-- Fondo del Frame con degradado -->
+            <Frame Grid.RowSpan="10" Grid.ColumnSpan="2" CornerRadius="10" HasShadow="True" Padding="10">
+                <Frame.Background>
+                    <LinearGradientBrush EndPoint="1,0">
+                        <GradientStop Offset="0" Color="DarkRed"/>
+                        <GradientStop Offset="1" Color="Red" />
+                    </LinearGradientBrush>
+                </Frame.Background>
+            </Frame>
+
+            <!-- Botones de acción (Editar y Borrar) -->
+            <HorizontalStackLayout 
+                Grid.Row="0" 
+                Grid.Column="1" 
+                HorizontalOptions="End" 
+                VerticalOptions="Start" 
+                Margin="10" 
+                Spacing="10">
+                <ImageButton x:Name="Editar"
+                     Source="editar.png"
+                     HeightRequest="24" 
+                     WidthRequest="24" 
+                     Aspect="AspectFit"
+                     Command="{Binding Source={RelativeSource AncestorType={x:Type vm:DataViewModel}}, Path=EditarTareaCommand}"  
+                     CommandParameter="{Binding .}" />
+                <ImageButton x:Name="Borrar"
+                 Source="eliminar.png"
+                 HeightRequest="24" 
+                 WidthRequest="24" 
+                 Aspect="AspectFit"
+                 Command="{Binding Source={RelativeSource AncestorType={x:Type vm:DataViewModel}}, Path=EliminarTareaCommand}"  
+                 CommandParameter="{Binding .}" />
+            </HorizontalStackLayout>
+
+            <!-- Título de la tarea -->
+            <Label Grid.Row="0" 
+               Grid.Column="0" 
+               Text="{Binding Titulo}" 
+               FontSize="Medium" 
+               VerticalOptions="Center" 
+               HorizontalOptions="Start" 
+               Margin="10,0,0,0" 
+               FontAttributes="Bold" />
+
+            <!-- Prioridad -->
+            <Label Grid.Row="2" 
+               Grid.Column="0" 
+               Text="{Binding Prioridad, StringFormat='Prioridad: {0}'}" 
+               FontSize="Small" 
+               VerticalOptions="Start" 
+               Margin="10,0,0,0" />
+
+            <!-- Plazo -->
+            <Label Grid.Row="3" 
+               Grid.Column="0" 
+               Text="{Binding Plazo, StringFormat='Plazo: {0:dd/MM/yyyy}'}" 
+               FontSize="Small" 
+               VerticalOptions="End" 
+               Margin="10,0,0,0" />
+
+            <!--Tarea Completada-->
+            <Label Text="Tarea Completada" 
+                Margin="30,0,0,0" 
+                FontSize="Small"  
+                Grid.Row="4" 
+                Grid.Column="0" 
+                VerticalOptions="Center"/>
+            <CheckBox  Grid.Row="4" Grid.Column="0" 
+                IsChecked="{Binding TareaCompletada, Mode=TwoWay}" 
+                VerticalOptions="Center"/>
+
+            <!-- Progreso -->
+            <Label Grid.Row="4" 
+                 Grid.Column="1" 
+                 Text="{Binding Porcentaje, StringFormat='Progreso: {0} %'}" 
+                 FontSize="Small" 
+                 HorizontalOptions="End" 
+                 VerticalOptions="Center" 
+                 Margin="10,0,10,0" />
+        </Grid>
+    </DataTemplate>
+
+</ResourceDictionary>

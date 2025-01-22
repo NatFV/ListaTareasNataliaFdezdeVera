@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:selectors ="clr-namespace:ListaTareasNataliaFdezDeVera.Selectors"
+             xmlns:vm="clr-namespace:ListaTareasNataliaFdezDeVera.MVVM.ViewModels"
+             x:Class="ListaTareasNataliaFdezDeVera.MVVM.Views.DataView"
+             Title="Lista de tareas">
+    
+    <ContentPage.Resources>
+        <selectors:SelectorTareas x:Key="SelectorTareas"/>
+    </ContentPage.Resources>
+
+    <!-- Establecer el BindingContext -->
+    <ContentPage.BindingContext>
+        <vm:DataViewModel />
+    </ContentPage.BindingContext>
+    <ScrollView>
+    <StackLayout>
+        
+        <Button Text="Nueva tarea" Clicked="Button_Clicked" HorizontalOptions="Center"/>
+        
+        <CollectionView ItemsSource="{Binding Tareas}"
+                    SelectionMode="Multiple"
+                    ItemTemplate="{StaticResource SelectorTareas}"
+                    SelectedItem="{Binding TareasSeleccionada}">
+            <!--Orientación de las tareas que se agregan-->
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical" Span="2"/>
+            </CollectionView.ItemsLayout>
+
+            <!--Cuando la lista está vacía muestra una imagen y el título "No hay tareas"-->
+                <CollectionView.EmptyView>
+                    <Grid>
+                        <VerticalStackLayout VerticalOptions="Center" Padding="20">
+                            <Image HeightRequest="150"
+                                   Source="lvacia.png"
+                                   VerticalOptions="Center"/>
+                            <Label FontAttributes="Bold"
+                                   FontSize="Large"
+                                   HorizontalTextAlignment="Center"
+                                   Text="Aún no hay tareas"/>
+                        </VerticalStackLayout>
+                    </Grid>
+                </CollectionView.EmptyView>
+        </CollectionView>
+        
+        
+
+       
+
+    </StackLayout>
+    </ScrollView>
+
+</ContentPage>
